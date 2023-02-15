@@ -12,6 +12,9 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@cloudflare/wrangler": "^1.19.12",
-    "miniflare": "^2.8.1"
+    "miniflare": "^2.12.0"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security"
   }
 }

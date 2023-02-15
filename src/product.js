@@ -1,10 +1,17 @@
 import fixText from "./fixtext";
+// import fs from fs
+// const fs = require('fs')
 
-const product = async (query) => {
+
+// require("fs").writeFile("demo.txt", "Foo bar!")
+
+const product = async (asin) => {
   const product_page = await (
-    await fetch(`https://www.amazon.in/${query}`)
+    await fetch(`https://www.amazon.com/North-States-Metal-Superyard-freestanding/dp/`+asin)
   ).text();
 
+  // console.log(product_page)
+  //fs.writeFileSync('./test-sync.txt', product_page);
   try {
     var features = [];
     var feat = product_page
@@ -24,28 +31,39 @@ const product = async (query) => {
   var original_price = null;
 
   try {
-    var pricediv = product_page.split(/<div id="unifiedPrice_feature_div".*>/g);
+    //var pricediv = product_page.split(/<div id="a-section a-spacing-micro".*>/g);
+    var pricediv = product_page
+      .split('<span class="a-price aok-align-center" data-a-size="xl" data-a-color="base">')[1]
+      .split("</div>")[0];
+      //console.log(pricediv, "pricediv")
 
-    original_price = pricediv[1]
+      price = pricediv
       .split('<span class="a-offscreen">')[1]
       .split("</span>")[0];
+      console.log(price, "price")
 
-    try {
-      price = pricediv[1]
-        .split(
-          '<span class="a-price a-text-price a-size-medium apexPriceToPay" data-a-size="b" data-a-color="price">'
-        )[1]
-        .split("</span>")[0];
-      if (price.includes(">")) {
-        price = price.split(">")[1];
-      }
-    } catch (pe) {}
+      // price = original_price
+      // .split('<span class="a-offscreen">')[1]
+      // .split("</span>")[0];
 
-    if (price === null) {
-      price = pricediv[1]
-        .split(/<span class="a-price-whole">/g)[1]
-        .split("</span>")[0];
-    }
+      // console.log(use_price, "use_price")
+
+    // try {
+    //   price = pricediv[1]
+    //     .split(
+    //       '<span class="a-price a-text-price a-size-medium apexPriceToPay" data-a-size="b" data-a-color="price">'
+    //     )[1]
+    //     .split("</span>")[0];
+    //   if (price.includes(">")) {
+    //     price = price.split(">")[1];
+    //   }
+    // } catch (pe) {}
+
+    // if (price === null) {
+    //   price = pricediv[1]
+    //     .split(/<span class="a-price-whole">/g)[1]
+    //     .split("</span>")[0];
+    // }
   } catch (error) {}
 
   if (original_price !== null) {
@@ -54,7 +72,10 @@ const product = async (query) => {
     );
   }
   if (price !== null) {
-    price = parseFloat(price.replace("₹", "").replace(/,/g, "").trim());
+    console.log(price, "price")
+    price = parseFloat(price.replace("$", ""));
+    //price = parseFloat(price.replace("$", "").replace(/./g, "").trim());
+    console.log(price, "price")
   }
 
   try {
@@ -63,9 +84,16 @@ const product = async (query) => {
         .split('id="availability"')[1]
         .split("</div>")[0]
         .toLowerCase()
-        .lastIndexOf("in stock.") !== -1;
+        .lastIndexOf("in stock") !== -1;
+        //console.log(in_stock,"0")
   } catch (e) {
-    var in_stock = product_page.split("In stock.").length > 1;
+    //var in_stock = product_page.split("In stock.").length > 1;
+    var in_stock =
+    product_page
+      .split('id="availability"')[1]
+      .split("</div>")[0]
+      .toLowerCase()
+    //console.log(in_stock,"1")
   }
 
   try {
@@ -115,11 +143,11 @@ const product = async (query) => {
       ),
       image,
       price,
-      original_price,
+      // original_price,
       in_stock,
       rating_details,
       features,
-      product_link: `https://www.amazon.in/${query}`,
+      product_link: `https://www.amazon.com/${asin}`,
     };
   } catch (err) {
     var product_detail = null;
@@ -128,8 +156,8 @@ const product = async (query) => {
   return JSON.stringify(
     {
       status: true,
-      query,
-      fetch_from: `https://www.amazon.in/${query}`,
+      asin,
+      fetch_from: `https://www.amazon.com/${asin}`,
       product_detail,
     },
     null,
