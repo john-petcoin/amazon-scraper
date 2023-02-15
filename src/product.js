@@ -5,9 +5,9 @@ import fixText from "./fixtext";
 
 // require("fs").writeFile("demo.txt", "Foo bar!")
 
-const product = async (asin) => {
+const product = async (query) => {
   const product_page = await (
-    await fetch(`https://www.amazon.com/North-States-Metal-Superyard-freestanding/dp/`+asin)
+    await fetch(`https://www.amazon.com/`+query)
   ).text();
 
   // console.log(product_page)
@@ -147,7 +147,7 @@ const product = async (asin) => {
       in_stock,
       rating_details,
       features,
-      product_link: `https://www.amazon.com/${asin}`,
+      product_link: `https://www.amazon.com/${query}`,
     };
   } catch (err) {
     var product_detail = null;
@@ -156,8 +156,8 @@ const product = async (asin) => {
   return JSON.stringify(
     {
       status: true,
-      asin,
-      fetch_from: `https://www.amazon.com/${asin}`,
+      query,
+      fetch_from: `https://www.amazon.com/${query}`,
       product_detail,
     },
     null,
