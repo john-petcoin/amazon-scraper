@@ -1,13 +1,14 @@
 import fixText from "./fixtext";
+// import * as parse5 from parse5
+//import * as cheerio from 'cheerio'
 // import fs from fs
 // const fs = require('fs')
-
 
 // require("fs").writeFile("demo.txt", "Foo bar!")
 
 const product = async (query) => {
   const product_page = await (
-    await fetch(`https://www.amazon.com/`+query)
+    await fetch(`https://www.amazon.com/` + query)
   ).text();
 
   // console.log(product_page)
@@ -32,21 +33,62 @@ const product = async (query) => {
 
   try {
     //var pricediv = product_page.split(/<div id="a-section a-spacing-micro".*>/g);
-    var pricediv = product_page
-      .split('<span class="a-price aok-align-center" data-a-size="xl" data-a-color="base">')[1]
-      .split("</div>")[0];
-      //console.log(pricediv, "pricediv")
+    // var pricediv = product_page
+    //   .split(
+    //     '<span class="a-price aok-align-center" data-a-size="xl" data-a-color="base">'
+    //   )[1]
+    //   //.split('<span class="a-price a-text-normal">')[1]
+    //   .split("</span>")[0];
+    //     console.log(pricediv,"pricediv")
 
-      price = pricediv
-      .split('<span class="a-offscreen">')[1]
-      .split("</span>")[0];
-      console.log(price, "price")
 
-      // price = original_price
-      // .split('<span class="a-offscreen">')[1]
-      // .split("</span>")[0];
+    // var pricediv = product_page
+    // .split(
+    //   '<span class="a-section a-spacing-none aok-align-center">'
+    // )[1]
+    // //.split('<span class="a-price a-text-normal">')[1]
+    // .split("</span>")[0];
 
-      // console.log(use_price, "use_price")
+
+var price = product_page
+.split('<span class="a-offscreen">')[1]
+.split("</span>")[0];
+//console.log(pricediv,"pricediv")
+
+
+var description_div = product_page
+.split('<div id="productDescription" class="a-section a-spacing-small">')[1]
+.split("</div>")[0];
+
+
+var description = description_div
+.split('<span>')[1]
+.split("</span>")[0];
+// console.log("expecting description")
+// console.log(description,"description")
+
+
+
+    // // if (pricediv == "") {
+    // //   console.timeLog("no")
+    //   var pricediv = product_page
+    //     .split(
+    //       '<span class="a-section a-spacing-none aok-align-center">'
+    //     )[1]
+    //     //.split('<span class="a-price a-text-normal">')[1]
+    //     .split("</span>")[0];
+    // // }
+
+    //console.log(pricediv, "pricediv");
+
+    // price = pricediv.split('<span class="a-offscreen">')[1].split("</span>")[0];
+    // console.log(price, "price");
+
+    // price = original_price
+    // .split('<span class="a-offscreen">')[1]
+    // .split("</span>")[0];
+
+    // console.log(use_price, "use_price")
 
     // try {
     //   price = pricediv[1]
@@ -72,10 +114,10 @@ const product = async (query) => {
     );
   }
   if (price !== null) {
-    console.log(price, "price")
+    console.log(price, "price");
     price = parseFloat(price.replace("$", ""));
     //price = parseFloat(price.replace("$", "").replace(/./g, "").trim());
-    console.log(price, "price")
+    //console.log(price, "price");
   }
 
   try {
@@ -85,14 +127,13 @@ const product = async (query) => {
         .split("</div>")[0]
         .toLowerCase()
         .lastIndexOf("in stock") !== -1;
-        //console.log(in_stock,"0")
+    //console.log(in_stock,"0")
   } catch (e) {
     //var in_stock = product_page.split("In stock.").length > 1;
-    var in_stock =
-    product_page
+    var in_stock = product_page
       .split('id="availability"')[1]
       .split("</div>")[0]
-      .toLowerCase()
+      .toLowerCase();
     //console.log(in_stock,"1")
   }
 
@@ -143,6 +184,7 @@ const product = async (query) => {
       ),
       image,
       price,
+      description,
       // original_price,
       in_stock,
       rating_details,
