@@ -1,8 +1,6 @@
 import fixText from "./fixtext";
-// import * as parse5 from parse5
-//import * as cheerio from 'cheerio'
-// import fs from fs
-// const fs = require('fs')
+import * as cheerio from 'cheerio'
+
 
 // require("fs").writeFile("demo.txt", "Foo bar!")
 
@@ -41,7 +39,6 @@ const product = async (query) => {
     //   .split("</span>")[0];
     //     console.log(pricediv,"pricediv")
 
-
     // var pricediv = product_page
     // .split(
     //   '<span class="a-section a-spacing-none aok-align-center">'
@@ -49,25 +46,20 @@ const product = async (query) => {
     // //.split('<span class="a-price a-text-normal">')[1]
     // .split("</span>")[0];
 
+    var price = product_page
+      .split('<span class="a-offscreen">')[1]
+      .split("</span>")[0];
+    //console.log(pricediv,"pricediv")
 
-var price = product_page
-.split('<span class="a-offscreen">')[1]
-.split("</span>")[0];
-//console.log(pricediv,"pricediv")
+    var description_div = product_page
+      .split(
+        '<div id="productDescription" class="a-section a-spacing-small">'
+      )[1]
+      .split("</div>")[0];
 
-
-var description_div = product_page
-.split('<div id="productDescription" class="a-section a-spacing-small">')[1]
-.split("</div>")[0];
-
-
-var description = description_div
-.split('<span>')[1]
-.split("</span>")[0];
-// console.log("expecting description")
-// console.log(description,"description")
-
-
+    var description = description_div.split("<span>")[1].split("</span>")[0];
+    // console.log("expecting description")
+    // console.log(description,"description")
 
     // // if (pricediv == "") {
     // //   console.timeLog("no")
@@ -155,6 +147,24 @@ var description = description_div
   }
 
   try {
+    var altImagesDiv = product_page
+      .split('<div id="altImages" class="a-row">')[1]
+      .split("</div>")[0];
+    //.replaceAll("\n", "");
+    // console.log(altImagesDiv)
+
+    var altImages2 = altImagesDiv.split('<span class="a-list-item">')[1].split('</span>')[0];
+    console.log(altImages2)
+
+    var altImages = altImages2.split('<img alt="" src="')[1].split('"/>')[0];
+    //https://m.media-amazon.com/images/I/51pF5PtEZxL._AC_US40_.jpg
+    // console.log(altImages.replace("40_.jpg",".jpg"));
+
+  } catch (e) {
+    //var image = null;
+  }
+
+  try {
     var review_section = product_page.split("ratings</span>")[0];
     var ratings_count = parseInt(
       lastEntry(review_section.split(">")).replace(/,/g, "").trim()
@@ -184,11 +194,11 @@ var description = description_div
       ),
       image,
       price,
-      description,
       // original_price,
       in_stock,
       rating_details,
       features,
+      description,
       product_link: `https://www.amazon.com/${query}`,
     };
   } catch (err) {

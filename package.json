@@ -2,21 +2,21 @@
   "private": true,
   "name": "amazon-scraper",
   "version": "1.0.0",
-  "description": "Serverless amazon india scraper",
+  "description": "Serverless amazon scraper",
   "main": "src/index.js",
+  "loader": "babel-loader",
+  "exclude": "/node_modules/",
   "scripts": {
     "dev": "miniflare --watch --debug",
     "deploy": "wrangler publish"
   },
-  "author": "Tuhin Kanti Pal <me@thetuhin.com>",
+  "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
     "@cloudflare/wrangler": "^1.19.12",
     "miniflare": "^2.12.0"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "fs": "^0.0.1-security",
-    "parse5": "^7.1.2"
+    "cheerio": "^1.0.0-rc.12"
   }
 }
