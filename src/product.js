@@ -14,9 +14,9 @@ const product = async (query) => {
 //   console.log(product_page)
 
 // console.log('x')
-  const document = parse5.parse(product_page)
-  console.log(document);
-  return false;
+  // const document = parse5.parse(product_page)
+  // console.log(document);
+  // return false;
 
 
   console.log('ok')

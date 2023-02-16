@@ -1,8 +1,9 @@
 import search from "./search";
 import header from "./header";
 import product from "./product";
+import { MongoClient } from 'mongodb'
 
-async function handleRequest(request) {
+export async function handleRequest(request) {
   /* Handle the incoming request */
   const headers = header(request.headers);
   const path = new URL(request.url).pathname; /* Get the pathname */
@@ -60,4 +61,3 @@ addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
 });
 
-export {}
