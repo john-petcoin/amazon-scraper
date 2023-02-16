@@ -1,4 +1,4 @@
 name = "amazon-scraper"
 workers_dev = true
 compatibility_date = "2021-10-31"
-main = "./src/index.js"
+main = "dist/worker.js"
