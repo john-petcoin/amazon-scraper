@@ -1,6 +1,9 @@
 import fixText from "./fixtext";
 import * as cheerio from 'cheerio'
-
+import { MongoClient } from 'mongodb'
+import {parse5} from 'parse5'
+// import fs from fs
+// const fs = require('fs')
 
 // require("fs").writeFile("demo.txt", "Foo bar!")
 
@@ -9,6 +12,13 @@ const product = async (query) => {
     await fetch(`https://www.amazon.com/` + query)
   ).text();
 
+console.log('x')
+  const document = parse5.parse(product_page)
+  console.log(document);
+  return false;
+
+
+  console.log('ok')
   // console.log(product_page)
   //fs.writeFileSync('./test-sync.txt', product_page);
   try {

@@ -3,9 +3,8 @@
   "name": "amazon-scraper",
   "version": "1.0.0",
   "description": "Serverless amazon scraper",
-  "main": "src/index.js",
-  "loader": "babel-loader",
-  "exclude": "/node_modules/",
+  "type": "module",
+  "main": "dist/worker.js",
   "scripts": {
     "dev": "miniflare --watch --debug",
     "deploy": "wrangler publish"
@@ -13,10 +12,17 @@
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230214.0",
     "@cloudflare/wrangler": "^1.19.12",
     "miniflare": "^2.12.0"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12"
+    "@shopify/shopify-api": "^6.2.0",
+    "cheerio": "^1.0.0-rc.12",
+    "esbuild": "^0.17.8",
+    "mongodb": "^5.0.1",
+    "node-fetch": "^3.3.0",
+    "parse5": "^7.1.2",
+    "wrangler": "^2.10.0"
   }
 }
