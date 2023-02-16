@@ -1,7 +1,7 @@
 import fixText from "./fixtext";
-import * as cheerio from 'cheerio'
-import { MongoClient } from 'mongodb'
-import {parse5} from 'parse5'
+// import * as cheerio from 'cheerio'
+// import { MongoClient } from 'mongodb'
+// import {parse5} from 'parse5'
 // import fs from fs
 // const fs = require('fs')
 
@@ -11,11 +11,12 @@ const product = async (query) => {
   const product_page = await (
     await fetch(`https://www.amazon.com/` + query)
   ).text();
+//   console.log(product_page)
 
-console.log('x')
-  const document = parse5.parse(product_page)
-  console.log(document);
-  return false;
+// console.log('x')
+//   const document = parse5.parse(product_page)
+//   console.log(document);
+//   return false;
 
 
   console.log('ok')
