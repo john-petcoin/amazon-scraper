@@ -1,13 +1,7 @@
 name = "amazon-scraper"
+type = "webpack"
+account_id = ""
 workers_dev = true
-compatibility_date = "2021-10-31"
-
-
-
-[build]
-command = "npm run build"
-
-[build.upload]
-format = "modules"
-dir = "build"
-main = "./index.mjs"
+route = ""
+zone_id = ""
+compatibility_date = "2023-02-16"

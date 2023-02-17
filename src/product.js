@@ -9,8 +9,9 @@ import fixText from "./fixtext";
 
 const product = async (query) => {
   const product_page = await (
-    await fetch(`https://www.amazon.com/` + query)
+    await fetch(`https://www.amazon.com/dp/` + query)
   ).text();
+  return product_page
 //   console.log(product_page)
 
 // console.log('x')
@@ -210,22 +211,26 @@ const product = async (query) => {
       rating_details,
       features,
       description,
-      product_link: `https://www.amazon.com/${query}`,
+      product_link: `https://www.amazon.com/dp/${query}`,
     };
   } catch (err) {
     var product_detail = null;
   }
 
-  return JSON.stringify(
-    {
-      status: true,
-      query,
-      fetch_from: `https://www.amazon.com/${query}`,
-      product_detail,
-    },
-    null,
-    2
-  );
+
+
+
+  // return JSON.stringify(
+  //   {
+  //     status: true,
+  //     query,
+  //     fetch_from: `https://www.amazon.com/${query}`,
+  //     product_detail,
+  //     product_page
+  //   },
+  //   null,
+  //   2
+  // );
 };
 
 const lastEntry = (array) => array[array.length - 1];

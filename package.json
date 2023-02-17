@@ -3,21 +3,15 @@
   "name": "amazon-scraper",
   "version": "1.0.0",
   "description": "Serverless amazon scraper",
-  "type": "module",
-  "main": "build/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "esbuild --bundle --sourcemap --outdir=build ./src/index.js",
-    "dev": "miniflare --watch --debug --modules",
-    "deploy": "wrangler dev"
+    "dev": "miniflare --watch --debug",
+    "deploy": "wrangler publish"
   },
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
-    "esbuild": "^0.17.8",
+    "@cloudflare/wrangler": "^1.19.12",
     "miniflare": "^2.12.0"
-  },
-  "dependencies": {
-    "@cloudflare/kv-asset-handler": "^0.3.0",
-    "mongodb": "^5.0.1"
   }
 }

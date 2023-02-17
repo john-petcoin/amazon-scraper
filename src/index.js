@@ -1,7 +1,9 @@
 import search from "./search";
 import header from "./header";
 import product from "./product";
-import { MongoClient } from 'mongodb'
+// import { makeRequest } from './modules/global.js'
+
+//import { MongoClient } from 'mongodb'
 
 export async function handleRequest(request) {
   /* Handle the incoming request */
