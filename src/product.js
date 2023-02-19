@@ -8,19 +8,21 @@ import fixText from "./fixtext";
 // require("fs").writeFile("demo.txt", "Foo bar!")
 
 const product = async (query) => {
+  let headers = new Headers({
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+  });
   const product_page = await (
-    await fetch(`https://www.amazon.com/dp/` + query)
+    await fetch(`https://www.amazon.com/dp/` + query, headers)
   ).text();
-  return product_page
-//   console.log(product_page)
+  return product_page;
+  //   console.log(product_page)
 
-// console.log('x')
+  // console.log('x')
   // const document = parse5.parse(product_page)
   // console.log(document);
   // return false;
 
-
-  console.log('ok')
+  console.log("ok");
   // console.log(product_page)
   //fs.writeFileSync('./test-sync.txt', product_page);
   try {
@@ -114,7 +116,10 @@ const product = async (query) => {
 
   if (original_price !== null) {
     original_price = parseFloat(
-      original_price.replace("₹", "").replace(/,/g, "").trim()
+      original_price
+        .replace("₹", "")
+        .replace(/,/g, "")
+        .trim()
     );
   }
   if (price !== null) {
@@ -165,13 +170,14 @@ const product = async (query) => {
     //.replaceAll("\n", "");
     // console.log(altImagesDiv)
 
-    var altImages2 = altImagesDiv.split('<span class="a-list-item">')[1].split('</span>')[0];
-    console.log(altImages2)
+    var altImages2 = altImagesDiv
+      .split('<span class="a-list-item">')[1]
+      .split("</span>")[0];
+    console.log(altImages2);
 
     var altImages = altImages2.split('<img alt="" src="')[1].split('"/>')[0];
     //https://m.media-amazon.com/images/I/51pF5PtEZxL._AC_US40_.jpg
     // console.log(altImages.replace("40_.jpg",".jpg"));
-
   } catch (e) {
     //var image = null;
   }
@@ -179,7 +185,9 @@ const product = async (query) => {
   try {
     var review_section = product_page.split("ratings</span>")[0];
     var ratings_count = parseInt(
-      lastEntry(review_section.split(">")).replace(/,/g, "").trim()
+      lastEntry(review_section.split(">"))
+        .replace(/,/g, "")
+        .trim()
     );
     var rating = parseFloat(
       lastEntry(
@@ -216,9 +224,6 @@ const product = async (query) => {
   } catch (err) {
     var product_detail = null;
   }
-
-
-
 
   // return JSON.stringify(
   //   {
